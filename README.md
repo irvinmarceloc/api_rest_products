@@ -16,7 +16,13 @@ categorías
 ## Endpoints
 * `/products`: Lista solo de nombre y estado del producto
 * `/products/<int:pk>`: Ver un producto en detalle(solo usuarios con jwt válido)
-
+* `admin/`:
+* `products/edit/<int:pk>`:
+* `products/delete/<int:pk>`:
+* `products/create`:
+* `login`:
+* `refresh`:
+* `register`:
 ## Paquetes y entorno de ejecución
 `Ubuntu` 22.08
 `asgiref==`3.7.2
