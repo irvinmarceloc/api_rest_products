@@ -7,7 +7,7 @@ producto
 * Usar jwt para el manejo de sesión
 * Se requiere usuario aprobado para crear, modificar y eliminar productos.
 ### En progreso
-* Colección de postman para pruebas()
+* Colección de postman para pruebas(Faltan algunos endpoints)
 ### Siguientes pasos: 
 * El listado de productos debe tener filtros de búsqueda por nombre, estado y
 categorías
