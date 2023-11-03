@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Producto
-from .serializers import ProductoSerializer, CategoriaSerializer, MyTokenObtainPairSerializer
+from .serializers import ProductoSerializer, ProductoSinAuthSerializer, CategoriaSerializer, MyTokenObtainPairSerializer
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.shortcuts import get_object_or_404, render
@@ -19,7 +19,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 @api_view(['GET'])
 def product_list(request):
     products = Producto.objects.all()
-    serializer = ProductoSerializer(products, many=True)
+    serializer = ProductoSinAuthSerializer(products, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
