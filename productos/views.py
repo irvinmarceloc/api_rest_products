@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Producto
 from .serializers import ProductoSerializer, ProductoSinAuthSerializer, CategoriaSerializer, MyTokenObtainPairSerializer
@@ -33,6 +33,33 @@ def product_detail(request, pk):
     except Producto.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['PUT'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated, IsAdminUser])  # Requiere autenticación y que el usuario sea del staff
+def edit_product(request, pk):
+    try:
+        product = Producto.objects.get(pk=pk)
+    except Producto.DoesNotExist:
+        return Response({"message": "El producto no existe"}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = ProductoSerializer(product, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated, IsAdminUser])  # Requiere autenticación y que el usuario sea del staff
+def delete_product(request, pk):
+    try:
+        product = Producto.objects.get(pk=pk)
+    except Producto.DoesNotExist:
+        return Response({"message": "El producto no existe"}, status=status.HTTP_404_NOT_FOUND)
+
+    product.delete()
+    return Response({"message": "Producto eliminado con éxito"}, status=status.HTTP_204_NO_CONTENT)
+
 # register
 @api_view(['POST'])
 def register(request):
@@ -44,11 +71,11 @@ def register(request):
 
     # Check if the username already exists
     if User.objects.filter(username=username).exists():
-        return Response({"message": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message": "El nombre de usuario ya existe"}, status=status.HTTP_400_BAD_REQUEST)
 
     # Create a new user
     user = User.objects.create_user(username=username, password=password, first_name=first_name, last_name=last_name, email=email)
-    return Response("new user born")
+    return Response("Usuario creado con exito!!!")
 
  #login
 class MyTokenObtainPairView(TokenObtainPairView):
