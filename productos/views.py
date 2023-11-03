@@ -60,6 +60,16 @@ def delete_product(request, pk):
     product.delete()
     return Response({"message": "Producto eliminado con éxito"}, status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated, IsAdminUser])
+def create_product(request):
+    serializer = ProductoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 # register
 @api_view(['POST'])
 def register(request):
