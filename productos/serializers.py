@@ -12,8 +12,6 @@ class ProductoSinAuthSerializer(serializers.Serializer):
             'estado': instance.estado,
         }
 
-
-
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto

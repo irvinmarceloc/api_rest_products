@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "b5d6f066-acbc-4b21-8f77-6625454cc1b5",
+		"name": "prueba-react-django",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16492428",
+		"_collection_link": "https://irvinmarceloc.postman.co/workspace/FlashSS~eeb9d7d1-242a-472c-8fac-ca7c1adba8eb/collection/16492428-b5d6f066-acbc-4b21-8f77-6625454cc1b5?action=share&source=collection_link&creator=16492428"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user3\",\n    \"password\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.122.41:8000/login",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login incorrecto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin1\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.122.41:8000/login",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos sin auth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.122.41:8000/products",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos con auth con jwt",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "algorithm",
+							"value": "ES256",
+							"type": "string"
+						},
+						{
+							"key": "payload",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4OTc5NzQ1LCJpYXQiOjE2OTg5NzgyNDUsImp0aSI6IjdlMmE4NDNlMTc5YTQ2Yzg4MGVkMzY4ZjI0OWM0NWMzIiwidXNlcl9pZCI6MSwidXNlcm5hbWUiOiJhZG1pbjEifQ.T8Med-ct_rsK-lv_STval0SDc-7PuU6ea8bptEmtQkY\"",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://192.168.122.41:8000/products/1",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos con auth sin jwt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://192.168.122.41:8000/products/1",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user3\",\n    \"password\": \"1234\",\n    \"first_name\": \"juan\",\n    \"last_name\": \"perez\",\n    \"email\": \"pepito@pepito.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.122.41:8000/register",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"122",
+						"41"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
